@@ -11,7 +11,7 @@
 # example run on 2 nodes, each node with 4 threads
 # please specify the host file accordingly
 
-nprocs=2
+nprocs=3
 SOURCE_DIR=$HOME/vcs/pWord2Vec/sandbox
 mpirun -np $nprocs $SOURCE_DIR/mpi_job.sh
 
