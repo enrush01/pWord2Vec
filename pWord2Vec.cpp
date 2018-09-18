@@ -536,7 +536,7 @@ void Train_SGNS() {
                     int c = outputs.meta[i];
                     for (int j = 0; j < input_size; j++) {
                         real f = 0.f, g;
-                        #pragma simd
+                        #pragma omp simd
                         for (int k = 0; k < hidden_size; k++) {
                             f += outputM[i * hidden_size + k] * inputM[j * hidden_size + k];
                         }
@@ -556,7 +556,7 @@ void Train_SGNS() {
                 for (int i = 0; i < output_size; i++) {
                     int c = outputs.meta[i];
                     int offset = i * input_size;
-                    #pragma simd
+                    #pragma omp simd
                     for (int j = 0; j < input_size; j++) {
                         real f = corrM[offset + j];
                         int label = (i ? 0 : 1);
@@ -575,7 +575,7 @@ void Train_SGNS() {
                 for (int i = 0; i < output_size; i++) {
                     for (int j = 0; j < hidden_size; j++) {
                         real f = 0.f;
-                        #pragma simd
+                        #pragma omp simd
                         for (int k = 0; k < input_size; k++) {
                             f += corrM[i * input_size + k] * inputM[k * hidden_size + j];
                         }
@@ -591,7 +591,7 @@ void Train_SGNS() {
                 for (int i = 0; i < input_size; i++) {
                     for (int j = 0; j < hidden_size; j++) {
                         real f = 0.f;
-                        #pragma simd
+                        #pragma omp simd
                         for (int k = 0; k < output_size; k++) {
                             f += corrM[k * input_size + i] * outputM[k * hidden_size + j];
                         }
@@ -607,7 +607,7 @@ void Train_SGNS() {
                 for (int i = 0; i < input_size; i++) {
                     int src = i * hidden_size;
                     int des = inputs[input_start + i] * hidden_size;
-                    #pragma simd
+                    #pragma omp simd
                     for (int j = 0; j < hidden_size; j++) {
                         Wih[des + j] += inputM[src + j];
                     }
@@ -616,7 +616,7 @@ void Train_SGNS() {
                 for (int i = 0; i < output_size; i++) {
                     int src = i * hidden_size;
                     int des = outputs.indices[i] * hidden_size;
-                    #pragma simd
+                    #pragma omp simd
                     for (int j = 0; j < hidden_size; j++) {
                         Woh[des + j] += outputMd[src + j];
                     }
