@@ -3,7 +3,7 @@
 data=../data/text8
 binary=../pWord2Vec_mpi
 
-ncores=4
+ncores=8
 niters=2
 
 #export KMP_AFFINITY=explicit,proclist=[0-$(($ncores-1))],granularity=fine
